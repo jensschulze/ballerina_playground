@@ -1,9 +1,17 @@
 import ballerina/http;
 import ballerina/log;
+import ballerina/docker;
 
+@docker:Expose{}
 listener http:Listener helloWorldEndpoint = new (9090);
 
-@http:ServiceConfig {basePath: "/hello"}
+@http:ServiceConfig {
+    basePath: "/hello"
+}
+@docker:Config {
+    name: "helloworld",
+    tag: "0.1.0"
+}
 service helloWorld on helloWorldEndpoint {
     @http:ResourceConfig {
         methods: ["GET"],
